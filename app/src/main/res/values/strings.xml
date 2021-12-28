@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Penny Drop</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="players">Players</string>
     <string name="game">Game</string>
+    <string name="or">OR</string>
+    <string name="pass">Pass</string>
+    <string name="play_button">Play</string>
+    <string name="player_name">Player Name</string>
+    <string name="players">Players</string>
+    <string name="roll">Roll</string>
+    <string name="coin_icon">Coin Icon</string>
 </resources>
