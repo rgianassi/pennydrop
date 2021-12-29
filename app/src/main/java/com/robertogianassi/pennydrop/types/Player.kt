@@ -14,6 +14,9 @@ data class Player(
 
     var isRolling: Boolean = false
 
+    fun penniesLeft(subtractPenny: Boolean = false) =
+        (pennies - (if (subtractPenny) 1 else 0)) > 0
+
     companion object {
         const val defaultPennyCount = 10
     }
