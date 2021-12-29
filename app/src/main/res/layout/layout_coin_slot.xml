@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="slotNum"
-            type="int" />
+            name="slot"
+            type="com.robertogianassi.pennydrop.types.Slot" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,15 +23,18 @@
             android:minWidth="36dp"
             android:minHeight="36dp"
             android:src="@drawable/mdi_coin_black_24"
+            android:tint="@{slot.lastRolled ? @color/colorPrimary : @android:color/black}"
+            app:isHidden="@{!slot.canBeFilled || !slot.isFilled}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
 
         <View
             android:id="@+id/bottomViewCoinSlot"
             android:layout_width="0dp"
             android:layout_height="5dp"
-            android:background="@android:color/black"
+            android:background="@{slot.lastRolled ? @color/colorPrimary : @android:color/black}"
             app:layout_constraintEnd_toEndOf="@id/coinImageCoinSlot"
             app:layout_constraintStart_toStartOf="@id/coinImageCoinSlot"
             app:layout_constraintTop_toBottomOf="@id/coinImageCoinSlot" />
@@ -40,7 +43,8 @@
             android:id="@+id/slotNumberCoinSlot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{slotNum + ""}'
+            android:text='@{slot.number + ""}'
+            android:textColor="@{slot.lastRolled ? @color/colorPrimary : @android:color/black}"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@id/coinImageCoinSlot"
             app:layout_constraintStart_toStartOf="@id/coinImageCoinSlot"
