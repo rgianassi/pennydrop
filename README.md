@@ -19,3 +19,7 @@ The rules are as follows:
 [Kotlin and Android Development featuring Jetpack](https://pragprog.com/titles/mfjetpack/kotlin-and-android-development-featuring-jetpack/)
 
 Build Better, Safer Android Apps
+
+by Michael Fazio
+
+ISBN: 9781680508154
