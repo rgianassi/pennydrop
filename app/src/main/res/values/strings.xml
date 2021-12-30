@@ -2,12 +2,16 @@
     <string name="app_name">Penny Drop</string>
     <string name="coin_icon">Coin Icon</string>
     <string name="coins_left">Coin(s) Left</string>
+    <string name="cur_player">Current Player</string>
     <string name="game">Game</string>
+    <string name="games_played">games played</string>
     <string name="na">N/A</string>
     <string name="or">OR</string>
     <string name="pass">Pass</string>
     <string name="play_button">Play Button</string>
     <string name="player_name">Player Name</string>
+    <string name="player_type_image">Player Type Image</string>
     <string name="players">Players</string>
+    <string name="rankings">Rankings</string>
     <string name="roll">Roll</string>
 </resources>

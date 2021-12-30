@@ -171,7 +171,9 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         val currentPlayerName = result.currentPlayer?.playerName ?: "???"
         return when {
             result.isGameOver -> generateGameOverText()
-            result.turnEnd == TurnEnd.Bust -> "${ohNoPhrases.shuffled().first()} ${result.previousPlayer?.playerName} rolled a ${result.lastRoll}. They collected ${result.coinChangeCount} pennies for a total of ${result.previousPlayer?.pennies}.\n$currentText"
+            result.turnEnd == TurnEnd.Bust -> "${
+                ohNoPhrases.shuffled().first()
+            } ${result.previousPlayer?.playerName} rolled a ${result.lastRoll}. They collected ${result.coinChangeCount} pennies for a total of ${result.previousPlayer?.pennies}.\n$currentText"
             result.turnEnd == TurnEnd.Pass -> "${result.previousPlayer?.playerName} passed. They currently have ${result.previousPlayer?.pennies} pennies.\n$currentText"
             result.lastRoll != null -> "$currentPlayerName rolled a ${result.lastRoll}.\n$currentText"
             else -> ""

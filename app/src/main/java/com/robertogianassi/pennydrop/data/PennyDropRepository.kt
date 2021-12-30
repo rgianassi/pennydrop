@@ -3,6 +3,9 @@ package com.robertogianassi.pennydrop.data
 import com.robertogianassi.pennydrop.types.Player
 
 class PennyDropRepository(private val pennyDropDao: PennyDropDao) {
+    fun getCompletedGameStatusesWithPlayers() =
+        pennyDropDao.getCompletedGameStatusesWithPlayers()
+
     fun getCurrentGameWithPlayers() =
         pennyDropDao.getCurrentGameWithPlayers()
 

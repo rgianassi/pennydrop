@@ -7,10 +7,14 @@ import java.time.OffsetDateTime
 
 @Dao
 abstract class PennyDropDao {
+    /* This is a transaction since GameWithPlayers pulls from multiple tables. */
+    @Transaction
+    @Query("SELECT * FROM games")
+    abstract fun getGamesWithPlayers(): LiveData<List<GameWithPlayers>>
+
     @Query("SELECT * FROM players WHERE playerName = :playerName")
     abstract fun getPlayer(playerName: String): Player?
 
-    /* This is a transaction since GameWithPlayers pulls from multiple tables. */
     @Transaction
     @Query("SELECT * FROM games ORDER BY startTime DESC LIMIT 1")
     abstract fun getCurrentGameWithPlayers(): LiveData<GameWithPlayers>
@@ -31,6 +35,22 @@ abstract class PennyDropDao {
         """
     )
     abstract fun getCurrentGameStatuses(): LiveData<List<GameStatus>>
+
+    @Transaction
+    @Query(
+        """
+        SELECT *
+            FROM game_statuses gs
+        WHERE gs.gameId IN (
+            SELECT gameId
+                FROM games
+            WHERE gameState = :finishedGameState
+        )
+        """
+    )
+    abstract fun getCompletedGameStatusesWithPlayers(
+        finishedGameState: GameState = GameState.Finished,
+    ): LiveData<List<GameStatusWithPlayer>>
 
     @Insert
     abstract suspend fun insertGame(game: Game): Long
