@@ -34,3 +34,8 @@ fun bindPlayerSummaryAvatarTint(imageView: ImageView, isHuman: Boolean) {
         )
     )
 }
+
+@BindingAdapter("slotLastRolled")
+fun bindSlotLastRolled(view: View, lastRolled: Boolean) {
+    view.isActivated = lastRolled
+}

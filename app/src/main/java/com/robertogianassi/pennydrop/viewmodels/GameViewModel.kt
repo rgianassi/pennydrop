@@ -2,6 +2,7 @@ package com.robertogianassi.pennydrop.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*
+import androidx.preference.PreferenceManager
 import com.robertogianassi.pennydrop.data.*
 import com.robertogianassi.pennydrop.game.GameHandler
 import com.robertogianassi.pennydrop.game.TurnEnd
@@ -24,6 +25,7 @@ import java.time.OffsetDateTime
 // subclass.
 class GameViewModel(application: Application) : AndroidViewModel(application) {
     private var clearText = false
+    private val prefs = PreferenceManager.getDefaultSharedPreferences(application)
     private val repository: PennyDropRepository
     val currentGame = MediatorLiveData<GameWithPlayers>()
     val currentGameStatuses: LiveData<List<GameStatus>>
@@ -80,7 +82,23 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     suspend fun startGame(playersForNewGame: List<Player>) {
-        repository.startGame(playersForNewGame)
+        // The likely question here is “Why not get the pennyCount value inside PennyDropDao
+        // instead of sending it through all the layers?” The reason is the
+        // PreferenceManager.getDefaultSharedPreferences function needs a reference to a Context
+        // object.
+        // In the docs, it says “[The getDefaultSharedPreferences() function] works from anywhere
+        // in your application,” but that’s only true if you’re able to get a Context object
+        // in said location. Even though we created the PennyDropDatabase with a Context
+        // object and get PennyDropDao from there, we don’t have access to that object
+        // anymore in this class.
+        // While we could save a Context value inside PennyDropDao in some fashion, we
+        // don’t want Android application context references being saved in random
+        // places. The GameViewModel already has access to a Context object (via the application
+        // value), so this is the best spot to access our preferences.
+        repository.startGame(
+            playersForNewGame,
+            prefs?.getInt("pennyCount", Player.defaultPennyCount)
+        )
     }
 
     fun roll() {
@@ -194,16 +212,22 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             ?.firstOrNull { !it.penniesLeft() || it.isRolling }
             ?.apply { pennies = 0 }
         if (players == null || winningPlayer == null) return "N/A"
+        val sortedPlayersString = players
+            .sortedBy { it.pennies }
+            .joinToString("\n") {
+                "\t${it.playerName} - ${it.pennies} pennies."
+            }
         return """
             |Game Over!
             |${winningPlayer.playerName} is the winner!
             |
-            |${generateCurrentStandings(players, "Final Scores:\n")}
+            |Final Scores:
+            |$sortedPlayersString
             """.trimMargin()
     }
 
     private suspend fun playAITurn() {
-        delay(1000)
+        delay(if (prefs.getBoolean("fastAI", false)) 1000 else 3000)
         val game = currentGame.value?.game
         val players = currentGame.value?.players
         val currentPlayer = currentPlayer.value

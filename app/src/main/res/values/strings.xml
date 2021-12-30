@@ -1,17 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about_app_summary">Overview, dev info, and icon attribution</string>
+    <string name="about_penny_drop">About Penny Drop</string>
     <string name="app_name">Penny Drop</string>
+    <string name="app_theme">App Theme</string>
     <string name="coin_icon">Coin Icon</string>
     <string name="coins_left">Coin(s) Left</string>
     <string name="cur_player">Current Player</string>
+    <string name="dice_icon">Dice Icon</string>
+    <string name="fast_ai">Fast AI</string>
+    <string name="fast_ai_summary">AI turns will be much faster.</string>
     <string name="game">Game</string>
     <string name="games_played">games played</string>
     <string name="na">N/A</string>
     <string name="or">OR</string>
     <string name="pass">Pass</string>
+    <string name="penny_drop">Penny Drop</string>
+    <string name="penny_drop_created_by"><![CDATA[The <i>Penny Drop</i> app was created by Michael Fazio for the Pragmatic Bookshelf title <a href=\"https://pragprog.com/titles/mfjetpack/\">\"Kotlin and Android Development featuring Jetpack\"</a>.]]></string>
+    <string name="penny_drop_description"><![CDATA[Start <b>building</b> modern, high-quality Android apps by working through two projects (including Penny Drop!) that use Kotlin and the Jetpack suite of libraries, tools, and practices.]]></string>
+    <string name="penny_drop_icons">The coin and six-sided die icons are from the Material Design Icons collection.</string>
+    <string name="pick_players">Pick Players</string>
     <string name="play_button">Play Button</string>
     <string name="player_name">Player Name</string>
     <string name="player_type_image">Player Type Image</string>
     <string name="players">Players</string>
     <string name="rankings">Rankings</string>
     <string name="roll">Roll</string>
+    <string name="settings">Settings</string>
+    <string name="starting_penny_count">Starting Penny Count</string>
+    <string name="starting_penny_count_new_game">This only takes effect on a new game.</string>
+    <string name="theme_mode">Theme Mode (Light/Dark)</string>
 </resources>

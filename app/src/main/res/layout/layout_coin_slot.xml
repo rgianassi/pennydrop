@@ -23,32 +23,35 @@
             android:minWidth="36dp"
             android:minHeight="36dp"
             android:src="@drawable/mdi_coin_black_24"
-            android:tint="@{slot.lastRolled ? @color/colorPrimary : @android:color/black}"
             app:isHidden="@{!slot.canBeFilled || !slot.isFilled}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="UseAppTint" />
+            app:slotLastRolled="@{slot.lastRolled}"
+            app:tint="@color/coin_slot_color" />
 
         <View
             android:id="@+id/bottomViewCoinSlot"
             android:layout_width="0dp"
             android:layout_height="5dp"
-            android:background="@{slot.lastRolled ? @color/colorPrimary : @android:color/black}"
+            android:background="@android:color/white"
+            android:backgroundTint="@color/coin_slot_color"
             app:layout_constraintEnd_toEndOf="@id/coinImageCoinSlot"
             app:layout_constraintStart_toStartOf="@id/coinImageCoinSlot"
-            app:layout_constraintTop_toBottomOf="@id/coinImageCoinSlot" />
+            app:layout_constraintTop_toBottomOf="@id/coinImageCoinSlot"
+            app:slotLastRolled="@{slot.lastRolled}" />
 
         <TextView
             android:id="@+id/slotNumberCoinSlot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text='@{slot.number + ""}'
-            android:textColor="@{slot.lastRolled ? @color/colorPrimary : @android:color/black}"
+            android:textColor="@color/coin_slot_color"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="@id/coinImageCoinSlot"
             app:layout_constraintStart_toStartOf="@id/coinImageCoinSlot"
             app:layout_constraintTop_toBottomOf="@id/bottomViewCoinSlot"
+            app:slotLastRolled="@{slot.lastRolled}"
             tools:text="3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

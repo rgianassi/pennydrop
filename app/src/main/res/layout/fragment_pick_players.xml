@@ -62,9 +62,10 @@
             android:layout_margin="16dp"
             android:contentDescription="@string/play_button"
             android:src="@drawable/ic_baseline_play_arrow_24"
+            app:backgroundTint="?android:attr/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@android:color/white" />
+            app:tint="?android:attr/textColorPrimaryInverse" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
