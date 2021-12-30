@@ -6,20 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.robertogianassi.pennydrop.R
 import com.robertogianassi.pennydrop.databinding.FragmentPickPlayersBinding
 import com.robertogianassi.pennydrop.viewmodels.GameViewModel
 import com.robertogianassi.pennydrop.viewmodels.PickPlayersViewModel
+import kotlinx.coroutines.launch
 
 class PickPlayersFragment : Fragment() {
-    private val pickPlayersViewModel
-            by activityViewModels<PickPlayersViewModel>()
+    private val pickPlayersViewModel by activityViewModels<PickPlayersViewModel>()
     private val gameViewModel by activityViewModels<GameViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentPickPlayersBinding
             .inflate(inflater, container, false)
@@ -27,15 +28,17 @@ class PickPlayersFragment : Fragment() {
                 vm = pickPlayersViewModel
 
                 buttonPlayGame.setOnClickListener {
-                    gameViewModel.startGame(
-                        pickPlayersViewModel.players.value
-                            ?.filter { newPlayer ->
-                                newPlayer.isIncluded.get()
-                            }?.map { newPlayer ->
-                                newPlayer.toPlayer()
-                            } ?: emptyList()
-                    )
-                    findNavController().navigate(R.id.gameFragment)
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        gameViewModel.startGame(
+                            pickPlayersViewModel.players.value
+                                ?.filter { newPlayer ->
+                                    newPlayer.isIncluded.get()
+                                }?.map { newPlayer ->
+                                    newPlayer.toPlayer()
+                                } ?: emptyList()
+                        )
+                        findNavController().navigate(R.id.gameFragment)
+                    }
                 }
             }
 

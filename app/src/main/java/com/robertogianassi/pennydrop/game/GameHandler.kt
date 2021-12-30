@@ -55,14 +55,6 @@ object GameHandler {
             canPass = false
         )
 
-    private fun rollDie(sides: Int = 6) = Random.nextInt(1, sides + 1)
-
-    private fun nextPlayer(players: List<Player>, currentPlayer: Player): Player? {
-        val currentIndex = players.indexOf(currentPlayer)
-        val nextIndex = (currentIndex + 1) % players.size
-        return players[nextIndex]
-    }
-
     fun playAITurn(
         players: List<Player>,
         currentPlayer: Player,
@@ -76,4 +68,12 @@ object GameHandler {
                 pass(players, currentPlayer)
             }
         }
+
+    private fun rollDie(sides: Int = 6) = Random.nextInt(1, sides + 1)
+
+    private fun nextPlayer(players: List<Player>, currentPlayer: Player): Player? {
+        val currentIndex = players.indexOf(currentPlayer)
+        val nextIndex = (currentIndex + 1) % players.size
+        return players[nextIndex]
+    }
 }
